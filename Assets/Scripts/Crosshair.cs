@@ -1,7 +1,7 @@
 	using UnityEngine;
 using System.Collections.Generic;
 
-namespace ITHB.UI
+namespace MyPlace
 {
 	public class Crosshair : Singleton<Crosshair>, IInteractiveGazeHandler
     {
@@ -95,7 +95,6 @@ namespace ITHB.UI
 
 		protected void Update()
 		{
-//			UpdateRaycast();
 
 			if(this.isConnecting)
 				UpdateConnector();
@@ -108,46 +107,6 @@ namespace ITHB.UI
 		//
 		// Crosshair functions
 		//
-
-		protected void UpdateRaycast()
-		{
-			Vector3 raycastOrigin = this.mainCameraTransform.position;
-			Vector3 raycastDirection = this.mainCameraTransform.forward;
-			Ray ray = new Ray(raycastOrigin,raycastDirection);
-			
-			RaycastHit raycastInfo;
-			if(Physics.Raycast(ray,out raycastInfo, 100f))
-			{
-				Element hitUIElement = null; 
-				Transform transformToCheckForUIElement = raycastInfo.collider.transform;
-				int checkCount = 0;
-				while(transformToCheckForUIElement != null && hitUIElement == null && checkCount<MAX_CHECK_COUNT)
-				{
-					hitUIElement = transformToCheckForUIElement.GetComponent<Element>();
-					checkCount++;
-					transformToCheckForUIElement = transformToCheckForUIElement.parent;
-				}
-				
-				LerpCrosshair(raycastInfo.distance - OFFSET_DISTANCE);
-
-				bool didHitValidUIElement = hitUIElement != null && hitUIElement;
-				if(didHitValidUIElement)
-				{
-					SetTooltip(hitUIElement.TooltipName);
-					SetLastValidCollisionTime();
-					
-				}else
-				{	
-					ClearTooltip();
-				}
-
-			}
-			else
-			{
-				LerpCrosshair(currentCrosshairDistance);
-				ClearTooltip();
-			}
-		}
 
 
 		public void OnInteractiveGaze (List<InteractiveGazeEventData> dataList) {

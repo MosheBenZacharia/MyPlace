@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UIPrimitives;
 
-namespace ITHB.UI
+namespace MyPlace
 {
-	public class UIElement : ITHB.UI.Element//, IPointerEnterHandler, IPointerExitHandler
+	public class UIElement : Element//, IPointerEnterHandler, IPointerExitHandler
 	{
 
 		public string tooltipName;

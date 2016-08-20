@@ -3,9 +3,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
 using System.Collections.Generic;
-using ITHB.UI;
 
-namespace ITHB.UI
+namespace MyPlace
 {
 	public class GazeInputModule : BaseInputModule
 	{

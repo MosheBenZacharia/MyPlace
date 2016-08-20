@@ -7,7 +7,7 @@ using UIPrimitives;
 
 namespace UIPrimitives
 {
-	public class UIButton : ITHB.UI.Button, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+	public class UIButton : MyPlace.Button, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 	{
 		//enum
 		public enum FillType
@@ -340,7 +340,7 @@ namespace UIPrimitives
 		{
 //			Debug.Log("OnPointerEnter");
 			Hovered(true);
-			if(ITHB.Input.allowButtonHoverFill)
+			if(MyPlace.Input.allowButtonHoverFill)
 				isFocused=true;
 
 			if(expandButtonsOnHover)
@@ -353,7 +353,7 @@ namespace UIPrimitives
 		{
 //			Debug.Log("OnPointerExit");
 			Hovered(false);
-			if(ITHB.Input.allowButtonHoverFill)
+			if(MyPlace.Input.allowButtonHoverFill)
 				isFocused=false;
 
 			if(expandButtonsOnHover)

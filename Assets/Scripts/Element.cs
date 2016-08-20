@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace ITHB.UI
+namespace MyPlace
 {
 	public abstract class Element : MonoBehaviour
 	{

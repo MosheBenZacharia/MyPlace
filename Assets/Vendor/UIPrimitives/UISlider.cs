@@ -4,11 +4,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
-using ITHB;
+using MyPlace;
 
 namespace UIPrimitives
 {
-	public class UISlider : ITHB.UI.UIElement, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+	public class UISlider : MyPlace.UIElement, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 	{
 		//readonly
 

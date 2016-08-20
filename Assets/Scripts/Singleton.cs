@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ITHB
+namespace MyPlace
 {
     public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour {
         /*

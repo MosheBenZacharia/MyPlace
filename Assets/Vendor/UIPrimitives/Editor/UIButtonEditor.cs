@@ -3,10 +3,8 @@ using UnityEngine;
 using System.Collections;
 using System.Linq;
 using UIPrimitives;
-using ITHB.Input;
-using ITHB.UI;
 
-namespace ITHB.Input
+namespace UIPrimitives
 {
 	[CanEditMultipleObjects]
 	[CustomEditor (typeof(UIButton))]

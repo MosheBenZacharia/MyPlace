@@ -3,16 +3,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-
-namespace UIPrimitives
+namespace MyPlace
 {
-	public class UIRadio : MonoBehaviour
+	public class ActivityObjectManager : MonoBehaviour
 	{
 		//readonly
 
 		//Serialized
-		[SerializeField]
-		protected UIPrimitives.UIButton[] buttons;
 		
 		/////Protected/////
 		//References
@@ -26,14 +23,13 @@ namespace UIPrimitives
 		
 		protected void Awake()
 		{
-			for (int i = 0; i < buttons.Length; ++i) {
-				buttons[i].SelectedAction+=OnButtonSelected;
-			}
+
 		}
 		
 		protected void Start ()
 		{
-			
+
+			ActivityObject[] activityObjects = FindObjectsOfType<ActivityObject>();
 		}
 		
 		protected void Update ()
@@ -43,17 +39,9 @@ namespace UIPrimitives
 		
 		///////////////////////////////////////////////////////////////////////////
 		//
-		// UIRadio Functions
+		// ActivityObjectManager Functions
 		//
 
-		protected void OnButtonSelected(MyPlace.Button button)
-		{
-			for (int i = 0; i < buttons.Length; ++i)
-			{
-				if(buttons[i]!=button)
-					buttons[i].ResetState();
-			}
-		}
 		
 		////////////////////////////////////////
 		//

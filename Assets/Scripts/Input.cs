@@ -71,7 +71,7 @@ namespace MyPlace
 
 		//Actions
 		public Action GlobalTriggerAction {get; set;}
-		public Action<ITHB.Application.QualityLevel> QualityLevelSelectedAction;
+//		public Action<ITHB.Application.QualityLevel> QualityLevelSelectedAction;
 		
 		////////////////////////////////////////
 		//
@@ -115,11 +115,6 @@ namespace MyPlace
 
 //			crosshair.PositionChangedAction += OnCrosshairPositionChanged;
 
-			MainMenuUI mainMenuUI = FindObjectOfType<MainMenuUI>();
-			if(mainMenuUI!=null) {
-
-				mainMenuUI.QualityLevelSelectedAction += OnQualityLevelSelected;
-			}
 		}
 
 		protected virtual void Start()
@@ -179,12 +174,6 @@ namespace MyPlace
             PlaySelectSound();
         }
 
-        protected void OnQualityLevelSelected(int index) {
-
-			if(QualityLevelSelectedAction!=null)
-				QualityLevelSelectedAction((ITHB.Application.QualityLevel) index);
-		}
-		
 		////////////////////////////////////////
 		//
 		// Audio Functions
