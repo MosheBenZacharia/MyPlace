@@ -1,8 +1,8 @@
 ﻿Shader "Custom/Rim/Texture Lit" {
 	Properties {
 		_MainTex ("Main Texture", 2d) = "white" {}
-    	_EmissionColor ("Emission Color", Color) = (1.0,1.0,1.0,1.0)
-    	_EmissionIntensity ("Emission Intensity", Range(0.0,1.0)) = 0.8
+    	_Color ("Emission Color", Color) = (1.0,1.0,1.0,1.0)
+    	_EmissionIntensity ("Emission Intensity", Range(0.0,1.0)) = 0.3
     	_RimColor ("Rim Color", Color) = (0.8,0.95,1.0,1.0)
     	_RimAngle ("Rim Angle", Range(0.0,4.0)) = 1.5
     	_RimIntensity ("Rim Intensity", Range(0.0,6.0)) = 1.5
@@ -19,7 +19,7 @@
 			//uniform
 			uniform sampler2D _MainTex;
 			uniform float4 _MainTex_ST;
-			uniform fixed4 _EmissionColor;
+			uniform fixed4 _Color;
 			uniform fixed _EmissionIntensity;
 			uniform fixed4 _RimColor;
 			uniform half _RimAngle;
@@ -51,7 +51,7 @@
 				half3 diffuseColor=max(0.0,0.6+dot(normalDirection,lightDirection));
 		
 				//Calculate emission color
-				half3 emissionColor=_EmissionColor*_EmissionIntensity;
+				half3 emissionColor=_Color*_EmissionIntensity;
 				
 				//Calculate rim color
     			half3 rimAngleColor = 1.0 - saturate(dot (normalize(viewDirection), normalDirection));
