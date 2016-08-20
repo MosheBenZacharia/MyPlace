@@ -32,6 +32,8 @@ namespace MyPlace
 
 		//Serialized
 		[SerializeField]
+		protected ActivityObjectType activityObjectType;
+		[SerializeField]
 		protected ActivityObjectMesh[] activityObjectMeshes;
 		
 		/////Protected/////
