@@ -57,6 +57,7 @@ namespace MyPlace
 			switch(currentActivityObjectType) {
 
 			case ActivityObject.ActivityObjectType.Paintball:
+			case ActivityObject.ActivityObjectType.BouncyBall://hack
 
 				Input.Instance.PaintballActivityCompleted();
 
@@ -93,6 +94,7 @@ namespace MyPlace
 			switch(activityObjectType) {
 
 			case ActivityObject.ActivityObjectType.Paintball:
+			case ActivityObject.ActivityObjectType.BouncyBall://hack
 
 				Input.Instance.PaintballActivityStarted();
 

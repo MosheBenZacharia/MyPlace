@@ -1,0 +1,190 @@
+fileFormatVersion: 2
+guid: 48e8e583a20854b4a8c451716fd6a9a7
+timeCreated: 1471756413
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: 1
+    100002: 1_2
+    100004: a
+    100006: c
+    100008: Cap_1
+    100010: Cap_1_2
+    100012: Cap_1_3
+    100014: Cap_1_4
+    100016: Cap_1_5
+    100018: Cap_1_6
+    100020: Cap_1_7
+    100022: Cap_2
+    100024: Cap_2_2
+    100026: Cap_2_3
+    100028: Cap_2_4
+    100030: Cap_2_5
+    100032: Cap_2_6
+    100034: Cap_2_7
+    100036: e
+    100038: l
+    100040: M
+    100042: MY
+    100044: My
+    100046: //RootNode
+    100048: P
+    100050: Place
+    100052: Place_2
+    100054: Y
+    400000: 1
+    400002: 1_2
+    400004: a
+    400006: c
+    400008: Cap_1
+    400010: Cap_1_2
+    400012: Cap_1_3
+    400014: Cap_1_4
+    400016: Cap_1_5
+    400018: Cap_1_6
+    400020: Cap_1_7
+    400022: Cap_2
+    400024: Cap_2_2
+    400026: Cap_2_3
+    400028: Cap_2_4
+    400030: Cap_2_5
+    400032: Cap_2_6
+    400034: Cap_2_7
+    400036: e
+    400038: l
+    400040: M
+    400042: MY
+    400044: My
+    400046: //RootNode
+    400048: P
+    400050: Place
+    400052: Place_2
+    400054: Y
+    2300000: a
+    2300002: c
+    2300004: Cap_1
+    2300006: Cap_1_2
+    2300008: Cap_1_3
+    2300010: Cap_1_4
+    2300012: Cap_1_5
+    2300014: Cap_1_6
+    2300016: Cap_1_7
+    2300018: Cap_2
+    2300020: Cap_2_2
+    2300022: Cap_2_3
+    2300024: Cap_2_4
+    2300026: Cap_2_5
+    2300028: Cap_2_6
+    2300030: Cap_2_7
+    2300032: e
+    2300034: l
+    2300036: M
+    2300038: P
+    2300040: Y
+    3300000: a
+    3300002: c
+    3300004: Cap_1
+    3300006: Cap_1_2
+    3300008: Cap_1_3
+    3300010: Cap_1_4
+    3300012: Cap_1_5
+    3300014: Cap_1_6
+    3300016: Cap_1_7
+    3300018: Cap_2
+    3300020: Cap_2_2
+    3300022: Cap_2_3
+    3300024: Cap_2_4
+    3300026: Cap_2_5
+    3300028: Cap_2_6
+    3300030: Cap_2_7
+    3300032: e
+    3300034: l
+    3300036: M
+    3300038: P
+    3300040: Y
+    4300000: M
+    4300002: Cap_1
+    4300004: Cap_2
+    4300006: Y
+    4300008: Cap_1_2
+    4300010: Cap_2_2
+    4300012: P
+    4300014: Cap_1_3
+    4300016: Cap_2_3
+    4300018: l
+    4300020: Cap_1_4
+    4300022: Cap_2_4
+    4300024: a
+    4300026: Cap_1_5
+    4300028: Cap_2_5
+    4300030: c
+    4300032: Cap_1_6
+    4300034: Cap_2_6
+    4300036: e
+    4300038: Cap_1_7
+    4300040: Cap_2_7
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
