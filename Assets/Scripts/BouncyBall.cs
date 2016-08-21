@@ -59,5 +59,10 @@ namespace MyPlace
 		//
 		// Function Functions
 
+		protected void OnCollisionEnter(Collision collision) {
+
+			Audio.Instance.PlaySoundEffect(Audio.SoundEffect.ImpactPunchRegular,transform.position);
+		}
+
 	}
 }

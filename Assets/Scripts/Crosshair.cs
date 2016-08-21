@@ -10,6 +10,7 @@ namespace MyPlace
 		//readonly
 		private readonly float CROSSHAIR_MIN_DISTANCE = .62f;
 		protected readonly float OFFSET_DISTANCE = .1f;
+		protected readonly float OFFSET_MULTIPLIER = .9f;
 		protected readonly int MAX_CHECK_COUNT = 2;
 		//How many parents to check after hitting a collider for a UIElement
 		protected readonly float SCALE_MULTIPLIER = 0.02741935484f;
@@ -161,12 +162,12 @@ namespace MyPlace
 
 			if (hitInteractable) {
 
-				LerpCrosshair (minDistance - OFFSET_DISTANCE);
+				LerpCrosshair (minDistance*OFFSET_MULTIPLIER);
 				SetLastValidCollisionTime ();
 				if (!IsStateLocked())
 					SetState (CrosshairState.Closed);
 			} else if (hitCollider) {
-				LerpCrosshair (minDistance - OFFSET_DISTANCE);
+				LerpCrosshair (minDistance*OFFSET_MULTIPLIER);
 				SetLastValidCollisionTime ();
 //				LerpCrosshair (currentCrosshairDistance);
 				if (!IsStateLocked())

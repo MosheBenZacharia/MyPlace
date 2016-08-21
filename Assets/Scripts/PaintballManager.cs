@@ -12,6 +12,8 @@ namespace MyPlace
 		//Serialized
 		[SerializeField]
 		protected GameObject paintballPrefab;
+		[SerializeField]
+		protected LayerMask layerMask;
 		
 		/////Protected/////
 		//References
@@ -50,17 +52,31 @@ namespace MyPlace
 
 		protected void CreatePaintball() {
 			
-			Color paintballColor = Color.HSVToRGB(UnityEngine.Random.value,.8f,1f);
 
 			Vector3 spawnPosition = Input.Instance.GetCameraPosition() + Input.Instance.GetCameraTransform().right*.15f;
+			Vector3 spawnDirection = Input.Instance.GetCameraForward();
+
+			Ray ray = new Ray(spawnPosition,spawnDirection);
+			RaycastHit raycastHit;
+			if(Physics.Raycast(ray,out raycastHit,10f,layerMask)) {
+
+
+			}else {
+				Debug.Log("Could not find collider for paintball.");
+				return;
+			}
+
+
+			Color paintballColor = Color.HSVToRGB(UnityEngine.Random.value,.8f,1f);
+
 			GameObject paintballGameObject = Instantiate (paintballPrefab,spawnPosition,Quaternion.identity) as GameObject;
-			Destroy(paintballGameObject,10f);
+//			Destroy(paintballGameObject,10f);
 
 
 			Paintball paintball = paintballGameObject.GetComponent<Paintball>();
-			paintball.Launch(Input.Instance.GetCameraForward(),paintballColor);
+			paintball.Launch(raycastHit.point,paintballColor);
 
-			Audio.Instance.PlaySoundEffect(Audio.SoundEffect.WhooshSmall);
+			Audio.Instance.PlaySoundEffect(Audio.SoundEffect.WhooshMedium);
 		}
 
 		////////////////////////////////////////

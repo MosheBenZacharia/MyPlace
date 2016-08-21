@@ -79,7 +79,16 @@ namespace MyPlace
 				activityTypeToManager[currentActivityObjectType].LaunchActivity();
 		}
 
-		protected void OnActivityObjectSelected(ActivityObject.ActivityObjectType activityObjectType) {
+		protected void OnActivityObjectSelected(ActivityObject activityObject) {
+
+			ClearCurrentActivity();
+			ResetActivityObjects(activityObject);
+
+			ActivityObject.ActivityObjectType activityObjectType = activityObject.ActivityType;
+			currentActivityObjectType = activityObjectType;
+
+
+			activityObject.SetState(ActivityObject.ActivityObjectState.Active);
 
 			switch(activityObjectType) {
 
@@ -93,7 +102,16 @@ namespace MyPlace
 			if(activityTypeToManager.ContainsKey(currentActivityObjectType))
 				activityTypeToManager[currentActivityObjectType].StartActivity();
 
-			currentActivityObjectType = activityObjectType;
+		}
+
+		protected void ResetActivityObjects(ActivityObject selectedActivityObject) {
+
+
+			foreach (ActivityObject activityObject in GetComponentsInChildren<ActivityObject>()) {
+
+				if(activityObject != selectedActivityObject)
+					activityObject.SetState(ActivityObject.ActivityObjectState.Inactive);
+			}
 		}
 
 	}

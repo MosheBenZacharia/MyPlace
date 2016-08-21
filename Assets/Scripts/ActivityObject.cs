@@ -15,6 +15,7 @@ namespace MyPlace
 			Cats,
 			Puppies,
 			None,
+			BouncyBall,
 		}
 		public enum ActivityObjectState {
 			Inactive,
@@ -44,8 +45,14 @@ namespace MyPlace
 		protected bool isFocused;
 
 		//Actions
-		public Action<ActivityObjectType> SelectedAction {get;set;}
+		public Action<ActivityObject> SelectedAction {get;set;}
 
+		//Properties
+		public ActivityObject.ActivityObjectType ActivityType {
+			get {
+				return this.activityObjectType;
+			}
+		}
 
 		///////////////////////////////////////////////////////////////////////////
 		//
@@ -70,7 +77,7 @@ namespace MyPlace
 		// ActivityObject Functions
 		//
 
-		protected void SetState(ActivityObjectState activityObjectState) {
+		public void SetState(ActivityObjectState activityObjectState) {
 
 			for (int i = 0; i < activityObjectMeshes.Length; ++i) {
 
@@ -87,12 +94,10 @@ namespace MyPlace
 
 		protected void OnClicked (PointerEventData eventData) {
 			
-			Debug.Log ("Clicked: " + gameObject.name);
-
-			SetState(ActivityObjectState.Active);
+//			Debug.Log ("Clicked: " + gameObject.name);
 
 			if (this.SelectedAction != null)
-				this.SelectedAction(activityObjectType);
+				this.SelectedAction(this);
 			if (this.selectedActionSimple != null)
 				this.selectedActionSimple ();
 		}

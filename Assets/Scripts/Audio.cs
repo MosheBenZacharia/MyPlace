@@ -14,10 +14,11 @@ namespace MyPlace
 			UIHoverOff,
 			UISelect,
 			WhooshSmall,
+			WhooshMedium,
 			BounceCartoony,
-			ImpactPunchRegular
+			ImpactPunchRegular,
+			Splat
 		}
-
 
 		protected Dictionary<SoundEffect,string> soundEffectToResourcePath = new Dictionary<SoundEffect, string>()
 		{
@@ -25,8 +26,10 @@ namespace MyPlace
 			{SoundEffect.UIHoverOff,"UI_Hover_Off"},
 			{SoundEffect.UISelect,"UI_Select"},
 			{SoundEffect.WhooshSmall,"interaction_whoosh_small_03"},
+			{SoundEffect.WhooshMedium,"interaction_whoosh_medium_03"},
 			{SoundEffect.BounceCartoony,"bounce_cartoony_04"},
 			{SoundEffect.ImpactPunchRegular,"impact_punch_regular_01"},
+			{SoundEffect.Splat,"splat"},
 		};
 
 		protected Dictionary<SoundEffect,AudioClip> soundEffectToAudioClip = new  Dictionary<SoundEffect, AudioClip>();
