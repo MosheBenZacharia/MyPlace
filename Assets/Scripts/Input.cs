@@ -6,7 +6,6 @@ using System.Collections.Generic;
 
 namespace MyPlace
 {
-
 	public enum InteractiveGazeEventType
 	{
 		HitInteractable,
@@ -43,69 +42,52 @@ namespace MyPlace
 		void OnDistScalePositionChanged (Vector3 position);
 	}
 
-	public class Input : Singleton<MyPlace.Input>
+	/// <summary>
+	/// Input does a bunch of input related tasks.
+	/// Also manages the crosshair.
+	/// </summary>
+	public class Input : Singleton<Input>
 	{
-		
+		//enum
+		public enum UserInteractionState
+		{
+			Enabled,
+			Gaze,
+			Disabled
+		}
 
-		//readonly
-
+		public static bool allowButtonHoverFill=false;
 
 		//Serialized
 		[SerializeField]
 		protected GazeInputModule gazeInputModule;
 		[SerializeField] 
 		protected Crosshair crosshair;
-		[SerializeField]
-		protected Button[] buttonsToRegister;
 		
 		/////Protected/////
 		//References
 		protected List<GameObject> interactiveGazeListeners;
-		protected Audio audio;
-		protected Action<bool> buttonHoveredAction;
-		protected Action<Button> buttonSelectedAction;
+		protected List<GameObject> distScaleListeners;
 		//Primitives
-
-		//public static
-		public static bool allowButtonHoverFill  {get; set;}
-
+		protected UserInteractionState currentUserInteractionState = UserInteractionState.Enabled;
+		
 		//Actions
 		public Action GlobalTriggerAction {get; set;}
-//		public Action<ITHB.Application.QualityLevel> QualityLevelSelectedAction;
-		
-		////////////////////////////////////////
-		//
-		// Properties
-		
-		public Action<bool> ButtonHoveredAction
-		{
-			set {
-				this.buttonHoveredAction = value;
-			}
-		}
-		
-		public Action<Button> ButtonSelectedAction
-		{
-			set {
-				this.buttonSelectedAction = value;
-			}
-		}
+		public Action BackAction { get; set; }
 
 		///////////////////////////////////////////////////////////////////////////
 		//
 		// Inherited from MonoBehaviour
 		//
-		
-		protected virtual void Awake()
-		{
-			
-			this.audio = Audio.Instance;
 
+		protected void Awake () {
 			interactiveGazeListeners = new List<GameObject> ();
-//			distScaleListeners = new List<GameObject> ();
+			distScaleListeners = new List<GameObject> ();
+		}
 
+		protected void Start () {
 			if (gazeInputModule == null)
-				gazeInputModule = FindObjectOfType<GazeInputModule> ();
+				gazeInputModule = GetComponentInChildren<GazeInputModule> ();
 
 			gazeInputModule.InteractiveGazeAction += OnInteractiveGaze;
 			gazeInputModule.GlobalTriggerAction += OnGlobalTrigger;
@@ -113,86 +95,165 @@ namespace MyPlace
 			if (crosshair == null)
 				crosshair = GetComponentInChildren<Crosshair> ();
 
-//			crosshair.PositionChangedAction += OnCrosshairPositionChanged;
+			crosshair.PositionChangedAction += OnCrosshairPositionChanged;
 
 		}
 
-		protected virtual void Start()
-		{
-			RegisterButtons(buttonsToRegister);
+		protected void Update () {
+
+			if (UnityEngine.Input.GetKeyDown (KeyCode.Escape) || OVRInput.GetDown (OVRInput.Button.Two)) {
+				OnBack ();
+			}
 		}
 
-        ///////////////////////////////////////////////////////////////////////////
-        //
-        // Input Functions
-        //
+		///////////////////////////////////////////////////////////////////////////
+		//
+		// Input Functions
+		//
 
-        public virtual void RegisterSlider(UIPrimitives.UISlider slider)
-        {
-            if (slider == null)
-                return;
-            slider.HoveredAction += OnButtonHovered;
-            slider.SelectedAction += OnSliderSelected;
-        }
+		public void EnableUserInput() {
 
-        public virtual void RegisterButton(Button button)
-		{
-			if(button==null)
-				return;
-			button.HoveredAction	+=	OnButtonHovered;
-			button.SelectedAction	+=	OnButtonSelected;
+			currentUserInteractionState = UserInteractionState.Enabled;
+			OnUserInteractionStateUpdated ();
 		}
 
-		public virtual void RegisterButtons(Button[] buttons)
-		{
-			if(buttons==null)
-				return;
-			for (int i = 0; i < buttons.Length; ++i)
-				RegisterButton(buttons[i]);
+		public void DisableUserInput() {
+			
+			currentUserInteractionState = UserInteractionState.Gaze;
+			OnUserInteractionStateUpdated ();
+		}
+
+		protected void OnUserInteractionStateUpdated() {
+
+//			switch (currentUserInteractionState) {
+//
+//			case UserInteractionState.Enabled:
+//				
+//				gazeInputModule.CanCastRayFromGaze = true;
+//				gazeInputModule.CanHandleTrigger = true;
+//				break;
+//
+//			case UserInteractionState.Gaze:
+//
+//				gazeInputModule.CanCastRayFromGaze = true;
+//				gazeInputModule.CanHandleTrigger = false;
+//				break;
+//			}
+		}
+
+		////////////////////////////////////////
+		//
+		// Scrolling Functions
+
+		public void OnScrollingStarted() {
+
+			this.crosshair.SetState (Crosshair.CrosshairState.Scrolling);
+		}
+
+		public void OnScrollingStopped() {
+
+			this.crosshair.SetState (Crosshair.CrosshairState.Open);
+		}
+
+		////////////////////////////////////////
+		//
+		// Waypoint Functions
+
+		public void SetWaypoint(Transform transform) {
+
+			crosshair.SetWaypoint (transform);
+		}
+
+		public void SetWaypoint(Vector3 position) {
+
+			crosshair.SetWaypoint (position);
+		}
+
+		public void ClearWaypoint() {
+
+			crosshair.ClearWaypoint ();
+		}
+
+		////////////////////////////////////////
+		//
+		// Like Functions
+
+		public void OnLikeLaunchingStarted() {
+
+			this.crosshair.SetState (Crosshair.CrosshairState.Liking);
+		}
+
+		public void OnLikeLaunchingStopped() {
+
+			this.crosshair.SetState (Crosshair.CrosshairState.Open);
+		}
+
+		////////////////////////////////////////
+		//
+		// Activity Functions
+
+		public void PaintballActivityStarted() {
+
+			crosshair.SetState (Crosshair.CrosshairState.Paintball);
+		}
+
+		public void PaintballActivityCompleted() {
+
+			crosshair.SetState (Crosshair.CrosshairState.Open);
+		}
+
+		////////////////////////////////////////
+		//
+		// Wipe Swipe Functions
+
+		public void WipeSwipeStarted() {
+
+			crosshair.SetState (Crosshair.CrosshairState.WipeSwipe);
+		}
+
+		public void WipeSwipeCompleted() {
+
+			crosshair.SetState (Crosshair.CrosshairState.Open);
+		}
+
+		public void SetWipeSwipePercent(float percent) {
+
+			crosshair.SetWipeSwipePercent(percent);
 		}
 
 		////////////////////////////////////////
 		//
 		// Event Functions
 
-		protected virtual void OnButtonHovered(bool value)
-		{
-			if(this.buttonHoveredAction!=null)
-				this.buttonHoveredAction(value);
-			
-			
-			PlayHoverSound(value);
+		/// <summary>
+		/// Forces the global trigger, used for on rails onboarding.
+		/// </summary>
+		public void ForceGlobalTrigger() {
+
+			OnGlobalTrigger();
 		}
 
-        protected virtual void OnButtonSelected(Button button)
-        {
-            if (this.buttonSelectedAction != null)
-                this.buttonSelectedAction(button);
+		protected void OnGlobalTrigger() {
 
-            PlaySelectSound();
-        }
+			if (GlobalTriggerAction != null)
+				GlobalTriggerAction ();
+		}
 
-        protected virtual void OnSliderSelected(UIPrimitives.UISlider slider)
-        {
+		protected void OnBack() {
+			if (currentUserInteractionState != UserInteractionState.Enabled)
+				return;
 
-            PlaySelectSound();
-        }
+			if (BackAction != null)
+				BackAction ();
+		}
 
 		////////////////////////////////////////
 		//
-		// Audio Functions
+		// Waypoint Functions
 
-		protected void PlayHoverSound(bool value)
-		{
-			if(value)
-				this.audio.PlaySoundEffect(Audio.SoundEffect.UIHoverOn);
-			else
-				this.audio.PlaySoundEffect(Audio.SoundEffect.UIHoverOff);
-		}
-		
-		protected void PlaySelectSound()
-		{
-			this.audio.PlaySoundEffect(Audio.SoundEffect.UISelect);
+		public void SetWaypointFocus(Vector3 position) {
+
+
 		}
 
 		////////////////////////////////////////
@@ -205,18 +266,48 @@ namespace MyPlace
 		}
 
 		protected void OnInteractiveGaze (List<InteractiveGazeEventData> interactiveGazeEventDataList) {
-
+			
 			//Fire the interactive gaze events
 			foreach (GameObject swipeListenerGameObject in interactiveGazeListeners)
 				ExecuteEvents.Execute<IInteractiveGazeHandler> (swipeListenerGameObject, null, (x, y) => x.OnInteractiveGaze (interactiveGazeEventDataList));
 		}
 
-		protected void OnGlobalTrigger() {
+		////////////////////////////////////////
+		//
+		// Crosshair Functions
 
-			if (GlobalTriggerAction != null)
-				GlobalTriggerAction ();
+		public Vector3 GetCameraPosition() {
+
+			return Camera.main.transform.position;
 		}
 
+		public Vector3 GetCameraForward() {
+
+			return Camera.main.transform.forward;
+		}
+
+		public Transform GetCameraTransform() {
+
+			return Camera.main.transform;
+		}
+
+		public void RegisterDistScaleGameObject (GameObject gameObjectToRegister,bool deregister = false) {
+			if(distScaleListeners ==null)
+				distScaleListeners = new List<GameObject> ();
+			if (deregister) {
+				if (distScaleListeners.Contains (gameObjectToRegister))
+					distScaleListeners.Remove (gameObjectToRegister);
+			} else {
+				if (!distScaleListeners.Contains (gameObjectToRegister))
+					distScaleListeners.Add (gameObjectToRegister);
+			}
+		}
+
+		protected void OnCrosshairPositionChanged (Vector3 position) {
+			//Fire the distance scale events
+			foreach (GameObject swipeListenerGameObject in distScaleListeners)
+				ExecuteEvents.Execute<IDistScaleElement> (swipeListenerGameObject, null, (x, y) => x.OnDistScalePositionChanged (position));
+		}
 
 	}
 }

@@ -13,7 +13,8 @@ namespace MyPlace
 			Paintball,
 			Fire,
 			Cats,
-			Puppies
+			Puppies,
+			None,
 		}
 		public enum ActivityObjectState {
 			Inactive,
