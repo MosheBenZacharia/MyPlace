@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UIPrimitives;
 
 namespace MyPlace
 {
@@ -10,6 +11,8 @@ namespace MyPlace
 		//readonly
 
 		//Serialized
+		[SerializeField]
+		protected CanvasGroupAnimator canvasGroupAnimator;
 		
 		/////Protected/////
 		//References
@@ -86,6 +89,7 @@ namespace MyPlace
 			ClearCurrentActivity();
 			ResetActivityObjects(activityObject);
 
+
 			ActivityObject.ActivityObjectType activityObjectType = activityObject.ActivityType;
 			currentActivityObjectType = activityObjectType;
 
@@ -106,6 +110,7 @@ namespace MyPlace
 			if(activityTypeToManager.ContainsKey(currentActivityObjectType))
 				activityTypeToManager[currentActivityObjectType].StartActivity();
 
+			canvasGroupAnimator.StartAnimation(CanvasGroupAnimation.AnimationType.Alpha,UIAnimation_Base.TweenType.Start,1f,0,1f,5f,UIAnimationUtility.GetCurve(UIAnimationUtility.EaseType.easeInCirc),UIAnimation_Base.LoopType.Loop,0);
 		}
 
 		protected void ResetActivityObjects(ActivityObject selectedActivityObject) {

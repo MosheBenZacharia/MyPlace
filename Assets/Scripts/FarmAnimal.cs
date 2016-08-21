@@ -49,9 +49,13 @@ namespace MyPlace
 			this.transform.position = position;
 			this.transform.rotation = Quaternion.Euler(0,UnityEngine.Random.Range(0,360f),0);
 //			this.myColor = color;
-//			GetComponent<UIPrimitives.UITransformAnimator>().AddPositionEndAnimation(position,animationDuration,UIAnimationUtility.EaseType.easeInCirc,Splat);
+			GetComponent<UIPrimitives.UITransformAnimator>().AddScaleEndAnimation(Vector3.zero,10f,UIAnimationUtility.EaseType.easeInCirc,DestroyMe);
 //			StartCoroutine(Splat(animationDuration));
 //			SetColor (color);
+		}
+
+		protected void DestroyMe() {
+			Destroy(this.gameObject);
 		}
 
 //		protected void SetColor (Color color) {

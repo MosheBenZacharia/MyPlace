@@ -33,9 +33,11 @@ namespace UIPrimitives
 			
 			myUIAnimationsRotation = new Queue<UIAnimation_Base> ();
 			myUIAnimations.Add (myUIAnimationsRotation);
-			
-			myUIAnimationsScale = new Queue<UIAnimation_Base> ();
-			myUIAnimations.Add (myUIAnimationsScale);
+
+			if(myUIAnimationsScale==null) {
+				myUIAnimationsScale = new Queue<UIAnimation_Base> ();
+				myUIAnimations.Add (myUIAnimationsScale);
+			}
 		}
 		
 		protected void Update ()
@@ -154,6 +156,7 @@ namespace UIPrimitives
 		public void AddScaleAnimation (UIAnimation_Base.TweenType tweenType, Action onCompleteAction, Action<float> onUpdateAction, Vector3 startScale, Vector3 endScale, Vector3 deltaScale, float duration, AnimationCurve easeCurve, UIAnimation_Base.LoopType loopType, int loopCount)
 		{
 			UITransformAnimation_Scale newUIAnimationPosition = new UITransformAnimation_Scale (this,onCompleteAction, onUpdateAction, tweenType, startScale, endScale, deltaScale, duration, easeCurve, loopType, loopCount);
+
 			myUIAnimationsScale.Enqueue (newUIAnimationPosition);
 			if(myUIAnimationsScale.Count==1)
 				UpdateAnimation(myUIAnimationsScale);
