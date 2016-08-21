@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace MyPlace
 {
-	public abstract class ActivityManager : UnityEngine.Networking.NetworkBehaviour
+	public class Player : NetworkBehaviour
 	{
+		
 		//readonly
 
 		//Serialized
@@ -14,37 +16,40 @@ namespace MyPlace
 		/////Protected/////
 		//References
 		//Primitives
-
-		public abstract ActivityObject.ActivityObjectType ActivityType {
-			get;
-		}
+		
 
 		///////////////////////////////////////////////////////////////////////////
 		//
 		// Inherited from MonoBehaviour
 		//
 		
-		protected void Awake () {
+		protected void Awake()
+		{
 
 		}
+		
+		protected void Start ()
+		{
+		
+			if(isLocalPlayer) {
+				transform.parent = GameObject.Find("CenterEyeAnchor").transform;
+				transform.localPosition = Vector3.zero;
+				transform.localRotation = Quaternion.identity;
 
-		protected void Start () {
+				GetComponentInChildren<MeshRenderer>().enabled = false;
+			}
+		}
+		
+		protected void Update ()
+		{
 			
 		}
-
-		protected void Update () {
-			
-		}
-
+		
 		///////////////////////////////////////////////////////////////////////////
 		//
-		// ActivityManager Functions
+		// Player Functions
 		//
 
-		public abstract void StartActivity ();
-
-		public abstract void StopActivity () ;
-		public abstract void LaunchActivity() ;
 		
 		////////////////////////////////////////
 		//

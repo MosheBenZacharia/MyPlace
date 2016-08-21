@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace MyPlace
 {
-	public class MusicManager : MonoBehaviour
+	public class MusicManager : UnityEngine.Networking.NetworkBehaviour
 	{
 		
 
@@ -65,11 +66,15 @@ namespace MyPlace
 		
 		protected void Start ()
 		{
-			UpdateSong();	
+			if(!isLocalPlayer)
+				return;
+			CmdUpdateSong();	
 		}
 		
 		protected void Update ()
 		{
+			if(!isLocalPlayer)
+				return;
 			AnalyzeAudio();
 		}
 		
@@ -78,7 +83,8 @@ namespace MyPlace
 		// MusicManager Functions
 		//
 
-		protected void UpdateSong() {
+		[UnityEngine.Networking.Command]
+		protected void CmdUpdateSong() {
 			if(lastMusicTextGameObject!=null){
 				Destroy(lastMusicTextGameObject);
 				lastMusicTextGameObject = null;
@@ -92,13 +98,16 @@ namespace MyPlace
 			audioSource.clip = currentSongData.songClip;
 			audioSource.Play();
 
+
+			NetworkServer.Spawn(musicTextGameObject);
+
 			lastMusicTextGameObject = musicTextGameObject;
 
 		}
 		protected void OnSpeakersButtonSelected() {
 
 			IncrementSongDataIndex();
-			UpdateSong();
+			CmdUpdateSong();
 		}
 
 		protected void IncrementSongDataIndex() {

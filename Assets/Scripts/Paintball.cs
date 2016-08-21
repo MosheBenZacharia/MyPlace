@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using UIPrimitives;
 
 namespace MyPlace
 {
-	public class Paintball : MonoBehaviour
+	public class Paintball : UnityEngine.Networking.NetworkBehaviour
 	{
 		//readonly
 
@@ -51,7 +52,7 @@ namespace MyPlace
 			
 			this.endPosition = position;
 			this.myColor = color;
-			GetComponent<UIPrimitives.UITransformAnimator>().AddPositionEndAnimation(position,animationDuration,UIAnimationUtility.EaseType.easeInCirc,Splat);
+			GetComponent<UIPrimitives.UITransformAnimator>().AddPositionEndAnimation(position,animationDuration,UIAnimationUtility.EaseType.easeInCirc,CmdSplat);
 //			StartCoroutine(Splat(animationDuration));
 			SetColor (color);
 		}
@@ -62,8 +63,9 @@ namespace MyPlace
 			GetComponentInChildren<MeshRenderer> ().material.SetColor ("_EmissionColor", color);
 		}
 
-		protected void Splat() {
-
+		[UnityEngine.Networking.Command]
+		protected void CmdSplat() {
+			
 //			yield return new WaitForSeconds(duration);
 
 			float splatDuration = 10f;
@@ -77,6 +79,9 @@ namespace MyPlace
 			splatGameObject.transform.Rotate(0,180f,0);
 			splatGameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial.color = this.myColor;
 			splatGameObject.GetComponentInChildren<MaterialAnimator>().AddColorEndAnimation(this.myColor.Alpha(0),duration:splatDuration,easeType:UIAnimationUtility.EaseType.easeInCirc);
+
+			NetworkServer.Spawn(splatGameObject);
+
 			Destroy(splatGameObject,splatDuration);
 			Destroy(this.gameObject);
 		}

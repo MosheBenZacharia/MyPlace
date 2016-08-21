@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -50,8 +51,8 @@ namespace MyPlace
 		// PaintballManager Functions
 		//
 
-		protected void CreatePaintball() {
-			
+		[UnityEngine.Networking.Command]
+		protected void CmdCreatePaintball() {
 
 			Vector3 spawnPosition = Input.Instance.GetCameraPosition() + Input.Instance.GetCameraTransform().right*.15f;
 			Vector3 spawnDirection = Input.Instance.GetCameraForward();
@@ -76,6 +77,8 @@ namespace MyPlace
 			Paintball paintball = paintballGameObject.GetComponent<Paintball>();
 			paintball.Launch(raycastHit.point,paintballColor);
 
+			NetworkServer.Spawn(paintballGameObject);
+
 			Audio.Instance.PlaySoundEffect(Audio.SoundEffect.WhooshMedium);
 		}
 
@@ -91,7 +94,7 @@ namespace MyPlace
 
 		public override void LaunchActivity () {
 
-			CreatePaintball();
+			CmdCreatePaintball();
 
 		}
 
