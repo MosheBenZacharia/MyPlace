@@ -58,6 +58,7 @@ namespace MyPlace
 
 			case ActivityObject.ActivityObjectType.Paintball:
 			case ActivityObject.ActivityObjectType.BouncyBall://hack
+			case ActivityObject.ActivityObjectType.FarmAnimal://hack
 
 				Input.Instance.PaintballActivityCompleted();
 
@@ -95,6 +96,7 @@ namespace MyPlace
 
 			case ActivityObject.ActivityObjectType.Paintball:
 			case ActivityObject.ActivityObjectType.BouncyBall://hack
+			case ActivityObject.ActivityObjectType.FarmAnimal://hack
 
 				Input.Instance.PaintballActivityStarted();
 

@@ -16,6 +16,7 @@ namespace MyPlace
 			Puppies,
 			None,
 			BouncyBall,
+			FarmAnimal
 		}
 		public enum ActivityObjectState {
 			Inactive,
