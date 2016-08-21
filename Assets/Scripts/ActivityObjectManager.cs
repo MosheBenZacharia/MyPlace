@@ -30,6 +30,9 @@ namespace MyPlace
 		{
 
 			ActivityObject[] activityObjects = FindObjectsOfType<ActivityObject>();
+			for (int i = 0; i < activityObjects.Length; ++i) {
+				activityObjects[i].SelectedAction += OnActivityObjectSelected;
+			}
 		}
 		
 		protected void Update ()
@@ -42,6 +45,17 @@ namespace MyPlace
 		// ActivityObjectManager Functions
 		//
 
+		protected void OnActivityObjectSelected(ActivityObject.ActivityObjectType activityObjectType) {
+
+			switch(activityObjectType) {
+
+			case ActivityObject.ActivityObjectType.Paintball:
+
+
+
+				break;
+			}
+		}
 		
 		////////////////////////////////////////
 		//

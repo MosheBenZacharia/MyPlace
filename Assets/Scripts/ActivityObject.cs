@@ -43,7 +43,7 @@ namespace MyPlace
 		protected bool isFocused;
 
 		//Actions
-//		public Action<
+		public Action<ActivityObjectType> SelectedAction {get;set;}
 
 
 		///////////////////////////////////////////////////////////////////////////
@@ -88,11 +88,10 @@ namespace MyPlace
 			
 			Debug.Log ("Clicked: " + gameObject.name);
 
-
 			SetState(ActivityObjectState.Active);
 
-			//			if (this.selectedAction != null)
-			//				this.selectedAction(this);
+			if (this.SelectedAction != null)
+				this.SelectedAction(activityObjectType);
 			if (this.selectedActionSimple != null)
 				this.selectedActionSimple ();
 		}
@@ -104,8 +103,7 @@ namespace MyPlace
 					SetState(ActivityObjectState.Hovered);
 				if(!value)
 					SetState(ActivityObjectState.Inactive);
-			}
-				
+			}	
 
 			if (this.hoveredAction != null)
 				this.hoveredAction (value);
@@ -158,7 +156,6 @@ namespace MyPlace
 		//ACtion
 
 		protected Action<bool> hoveredAction;
-		//		protected Action<UISlider> selectedAction;
 		protected Action selectedActionSimple;
 
 		////////////////////////////////////////

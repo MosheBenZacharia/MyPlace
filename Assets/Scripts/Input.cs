@@ -151,6 +151,10 @@ namespace MyPlace
 				RegisterButton(buttons[i]);
 		}
 
+		////////////////////////////////////////
+		//
+		// Event Functions
+
 		protected virtual void OnButtonHovered(bool value)
 		{
 			if(this.buttonHoveredAction!=null)

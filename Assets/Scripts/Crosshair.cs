@@ -28,11 +28,6 @@ namespace MyPlace
 		protected Sprite closedTexture;
 		[SerializeField]
 		protected Transform crosshairTransform;
-//		[Header("Materials")]
-//		[SerializeField]
-//		protected Material staticMaterial;
-//		[SerializeField]
-//		protected Material connectingMaterial;
   
 		/////Protected//
 		//References
