@@ -13,12 +13,9 @@ namespace MyPlace
 			UIHoverOn,
 			UIHoverOff,
 			UISelect,
-			ComfortRotation,
-			Voiceover_ResettingOrientation,
-			Voiceover_SelectTheScenes,
-			Virus_Hit,
-			Virus_Whoosh,
-			Virus_WhooshFast
+			WhooshSmall,
+			BounceCartoony,
+			ImpactPunchRegular
 		}
 
 
@@ -27,12 +24,9 @@ namespace MyPlace
 			{SoundEffect.UIHoverOn,"UI_Hover_On"},
 			{SoundEffect.UIHoverOff,"UI_Hover_Off"},
 			{SoundEffect.UISelect,"UI_Select"},
-			{SoundEffect.ComfortRotation,"ComfortRotation"},
-			{SoundEffect.Voiceover_ResettingOrientation,"VO_ResettingOrientation"},
-			{SoundEffect.Voiceover_SelectTheScenes,"VO_SelectTheScenes"},
-			{SoundEffect.Virus_Hit,"C9_Hit_Audio"},
-			{SoundEffect.Virus_Whoosh,"C9_Whoosh_Audio"},
-			{SoundEffect.Virus_WhooshFast,"C9_WhooshFast_Audio"}
+			{SoundEffect.WhooshSmall,"interaction_whoosh_small_03"},
+			{SoundEffect.BounceCartoony,"bounce_cartoony_04"},
+			{SoundEffect.ImpactPunchRegular,"impact_punch_regular_01"},
 		};
 
 		protected Dictionary<SoundEffect,AudioClip> soundEffectToAudioClip = new  Dictionary<SoundEffect, AudioClip>();
@@ -44,6 +38,7 @@ namespace MyPlace
 		//References
 		protected AudioSource audioSource;
 		protected AudioMixer audioMixer;
+
 		//Primitives
 		protected static float musicVolume = 1f;
 		protected static float narrationVolume = 1f;
@@ -79,11 +74,11 @@ namespace MyPlace
 		// Audio Functions
 		//
 
-		public void PlaySoundEffect(SoundEffect soundEffect)
-		{
+		public void PlaySoundEffect(SoundEffect soundEffect, Vector3 position = default(Vector3)) {
+
 			if(this.soundEffectToAudioClip.ContainsKey(soundEffect))
 			{
-				PlayClip(this.soundEffectToAudioClip[soundEffect]);
+				PlayClip(this.soundEffectToAudioClip[soundEffect],position);
 			}
 			else
 			{
@@ -92,19 +87,20 @@ namespace MyPlace
 				AudioClip audioClip = Resources.Load (soundEffectResourcePath) as AudioClip;
 				if(!soundEffect.ToString().StartsWith("Voiceover"))
 					this.soundEffectToAudioClip[soundEffect] = audioClip;
-				PlayClip(audioClip);
+				PlayClip(audioClip,position);
 			}
 		}
 
-		protected void PlayClip(AudioClip audioClip)
+		protected void PlayClip(AudioClip audioClip, Vector3 position = default(Vector3))
 		{
 
 			if(this.audioSource.isPlaying)
 			{
-				AudioSource.PlayClipAtPoint(audioClip,Vector3.zero);
+				AudioSource.PlayClipAtPoint(audioClip,position);
 			}
 			else
 			{
+				this.transform.position = position;
 				this.audioSource.clip = audioClip;
 				this.audioSource.Play();
 			}

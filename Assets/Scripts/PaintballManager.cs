@@ -54,9 +54,13 @@ namespace MyPlace
 
 			Vector3 spawnPosition = Input.Instance.GetCameraPosition() + Input.Instance.GetCameraTransform().right*.15f;
 			GameObject paintballGameObject = Instantiate (paintballPrefab,spawnPosition,Quaternion.identity) as GameObject;
+			Destroy(paintballGameObject,10f);
+
 
 			Paintball paintball = paintballGameObject.GetComponent<Paintball>();
 			paintball.Launch(Input.Instance.GetCameraForward(),paintballColor);
+
+			Audio.Instance.PlaySoundEffect(Audio.SoundEffect.WhooshSmall);
 		}
 
 		////////////////////////////////////////
@@ -72,7 +76,7 @@ namespace MyPlace
 		public override void LaunchActivity () {
 
 			CreatePaintball();
-			
+
 		}
 
 		public override void StartActivity () {

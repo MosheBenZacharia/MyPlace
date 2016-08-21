@@ -11,8 +11,8 @@ namespace MyPlace
 
 		//Serialized
 		[SerializeField]
-		protected float launchPower=100f;
-		
+		protected float launchPower = 100f;
+
 		/////Protected/////
 		//References
 		//Primitives
@@ -23,41 +23,43 @@ namespace MyPlace
 		// Inherited from MonoBehaviour
 		//
 		
-		protected void Awake()
-		{
+		protected void Awake () {
 
 		}
-		
-		protected void Start ()
-		{
+
+		protected void Start () {
+
+		}
+
+		protected void Update () {
 			
 		}
-		
-		protected void Update ()
-		{
-			
-		}
-		
+
 		///////////////////////////////////////////////////////////////////////////
 		//
 		// Paintball Functions
 		//
 
-		public void Launch(Vector3 direction, Color color) {
+		public void Launch (Vector3 direction, Color color) {
 
-			GetComponent<Rigidbody>().AddForce(launchPower*direction);
+			GetComponent<Rigidbody> ().AddForce (launchPower * direction);
 
-			SetColor(color);
+			SetColor (color);
 		}
 
-		protected void SetColor(Color color) {
+		protected void SetColor (Color color) {
 
-			GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor",color);
+			GetComponentInChildren<MeshRenderer> ().material.SetColor ("_EmissionColor", color);
 		}
 
 		////////////////////////////////////////
 		//
 		// Function Functions
 
+		protected void OnCollisionEnter(Collision collision) {
+
+			Audio.Instance.PlaySoundEffect(Audio.SoundEffect.ImpactPunchRegular,transform.position);
+
+		}
 	}
 }
