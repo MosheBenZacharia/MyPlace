@@ -3,8 +3,9 @@
 // - no lightmap support
 // - no per-material color
 
-Shader "Custom/Scrolling/Color Texture 3" {
+Shader "Custom/Scrolling/Color Texture 3 Master Brightness" {
 Properties {
+	_MasterBrightness ("Master Brightness", Range(0.0,2.0)) = 1.0
 	_Color ("Main Color", Color) = (1,1,1,1)
 	_MainTex ("Base (RGB)", 2D) = "white" {}
 	_Color2 ("Main Color", Color) = (1,1,1,1)
@@ -34,6 +35,8 @@ SubShader {
 				float4 vertex : SV_POSITION;
 				half2 texcoord : TEXCOORD0;
 			};
+
+			half _MasterBrightness;
 
 			fixed4 _Color;
 			sampler2D _MainTex;
@@ -68,6 +71,7 @@ SubShader {
 				fixed4 mainTex3 = _Color3*tex2D(_MainTex3, coords);
 				
 				fixed4 col = (mainTex+mainTex2+mainTex3)/3;
+				col*=_MasterBrightness;
 				
 				return col;
 			}

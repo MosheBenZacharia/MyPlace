@@ -33,6 +33,8 @@ ModelImporter:
     100050: Place
     100052: Place_2
     100054: Y
+    100056: My_2
+    100058: y
     400000: 1
     400002: 1_2
     400004: a
@@ -61,6 +63,8 @@ ModelImporter:
     400050: Place
     400052: Place_2
     400054: Y
+    400056: My_2
+    400058: y
     2300000: a
     2300002: c
     2300004: Cap_1
@@ -82,6 +86,7 @@ ModelImporter:
     2300036: M
     2300038: P
     2300040: Y
+    2300042: y
     3300000: a
     3300002: c
     3300004: Cap_1
@@ -103,6 +108,7 @@ ModelImporter:
     3300036: M
     3300038: P
     3300040: Y
+    3300042: y
     4300000: M
     4300002: Cap_1
     4300004: Cap_2
@@ -124,6 +130,7 @@ ModelImporter:
     4300036: e
     4300038: Cap_1_7
     4300040: Cap_2_7
+    4300042: y
   materials:
     importMaterials: 1
     materialName: 0
