@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace MyPlace
 {
-	public abstract class ActivityManager : UnityEngine.Networking.NetworkBehaviour
+	public abstract class ActivityManager : MonoBehaviour
 	{
 		//readonly
+
 
 		//Serialized
 		

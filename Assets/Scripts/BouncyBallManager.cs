@@ -49,8 +49,8 @@ namespace MyPlace
 		// PaintballManager Functions
 		//
 
-		[UnityEngine.Networking.Command]
-		protected void CmdCreateBouncyBall() {
+//		[UnityEngine.Networking.Command]
+		public void CmdCreateBouncyBall() {
 			
 			Color bouncyBallColor = Color.HSVToRGB(UnityEngine.Random.value,.8f,1f);
 
@@ -62,7 +62,7 @@ namespace MyPlace
 			BouncyBall bouncyBall = bouncyBallGameObject.GetComponent<BouncyBall>();
 			bouncyBall.Launch(Input.Instance.GetCameraForward(),bouncyBallColor);
 
-			NetworkServer.Spawn(bouncyBallGameObject);
+//			NetworkServer.Spawn(bouncyBallGameObject);
 
 			Audio.Instance.PlaySoundEffect(Audio.SoundEffect.WhooshSmall);
 		}
@@ -78,9 +78,10 @@ namespace MyPlace
 	
 
 		public override void LaunchActivity () {
+			
 
-			CmdCreateBouncyBall();
-
+//			CmdCreateBouncyBall();
+			FindObjectOfType<Player>().CallCreateBouncyBall(this);
 		}
 
 		public override void StartActivity () {
